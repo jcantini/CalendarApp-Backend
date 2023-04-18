@@ -1,7 +1,7 @@
 ## Calendar-App Backend
 
 The project was created using Vite.  
-It's deployed in Vercel and can be access from:  
+It's deployed in Railway and can be access from:  
 
 [Calendar-app](https://calendar-app-phi.vercel.app/)  Backend
 
