@@ -9,8 +9,8 @@ const app = express();
 // Conexión a la base de datos
 dbConnection();
 
-// CORS Poniéndolo acá se lo aplico a tos las rutas
-//app.use( cors );
+// CORS Poniéndolo acá se lo aplico a todas las rutas
+app.use( cors() );
 
 // Directorio público
 // Lo que quiero es que cuando se entra al directorio raiz / se muestre el index.html que esta en public.

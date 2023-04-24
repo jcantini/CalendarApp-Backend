@@ -52,7 +52,6 @@ const createUser = async(req, res = response ) => {  // (1)
 // Login de un usuario
 const userLogin = async (req, res = response ) => {  
     const { email, password } = req.body;
-
     try {
         // Verifico si el usuario existe
         const user = await User.findOne({ email }); 
@@ -102,6 +101,8 @@ const renewToken = async(req, res = response ) => {
 
     res.status(200).json({
         ok: true,
+        uid,
+        name,
         token
     });
 }

@@ -8,7 +8,7 @@ const validarJWT = ( req, res = response, next ) =>{
     const token = req.header('x-token');
 
     // Valido el JWT
-    if( !token ) { // Si vino un token retorno
+    if( !token ) { // Si no vino un token retorno
         return res.status(401).json({
             ok: false,
             msg: 'No JWT recived'

@@ -33,12 +33,13 @@ const getEvents = async (req, res = response ) => {
 
     try {
         const events = await Event.find() // (2)
-                                .populate('user', 'name') // (3)
-
-        res.status(200).json({
+                                .populate('user', 'name'); // (3)
+        // (4)
+        res.status(200).json({ 
             ok: true,
             events
-        })
+        });
+
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -77,7 +78,7 @@ const updateEvent = async (req, res = response ) => {
             user: uid    // porque no me viene en el body
         }
 
-        const eventUpdated = await Event.findByIdAndUpdate( eventId, newEvent, { new: true } ); //(4)
+        const eventUpdated = await Event.findByIdAndUpdate( eventId, newEvent, { new: true } ); //(5)
         res.status(200).json({
             ok: true,
             event: eventUpdated
@@ -115,7 +116,7 @@ const deleteEvent = async (req, res= response ) => {
             });
         }
 
-        await Event.findByIdAndDelete( eventId ); //(4)
+        await Event.findByIdAndDelete( eventId ); 
         res.status(200).json({
             ok: true
         });
@@ -144,7 +145,7 @@ Antes de grabar la nota tengo que escribir la propiedad user que está definida 
 con el id del usuario que lo está generando. El uid que viene, lo había qgregado cuando validé el JWT
 
 (2)
-En el find puedo aplicar filtros y paginación.
+En el find puedo aplicar filtros y paginación. 
 
 (3)
 Con populate le pido que me traiga también los campos  que están asociados al campo user del evento.
@@ -152,6 +153,11 @@ Si pusiera .populate(), me trae todos los campos. En mi caso especifiqué cuales
 Para que por ej me traiga name y password pongo .pupulate('user','name password')
 
 (4)
+En la respuesta que envio con el json, puedo desestructurar info que viene de mongo
+para x ej renombrar _id que me viene de mongo de user._id directamente como uid como lo hago en para 
+el login del usuario y así queda uniforme en el front como uid para ambos
+ 
+(5)
 Cuando se actualiza, el findByIdAndUpdate siempre devuelve el documento como estaba antes de actualizar 
 por si quiero comparar alg[un valor. Si quiero que en lugar de esto me devuelva el documento actualizado
 tengo que pasarle un 3er argumento con algunas opciones. En este caso seria { new: true }
