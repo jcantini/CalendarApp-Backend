@@ -20,11 +20,16 @@ app.use( express.static('./public'));
 app.use( express.json() ); // las peticiones que vienenen formato json las proceso y extraigo el contenido.
 
 // Rutas
-// Rutas de autenticacion
+// Rutas para la autenticacion
 app.use('/api/auth', require('./routes/auth')); // (1) 
 
 // Rutas para CRUD de los eventos
 app.use('/api/events', require('./routes/events'));
+
+// Cualquier otra ruta que venga retorno el archivo index.html para que vuelva a iniciar mi app
+app.get('*', (req, res) => {
+    res.sendFile( __dirname + '/public/index.html');
+})
 
 
 // Escuchar peticiones
